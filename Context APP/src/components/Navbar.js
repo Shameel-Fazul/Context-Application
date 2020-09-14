@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ThemeContext } from '../contexts/ThemeContext';
-import AuthContextProvider from '../contexts/AuthContext';
 import { AuthContext } from '../contexts/AuthContext'
 
 class Navbar extends Component {
@@ -9,7 +8,7 @@ class Navbar extends Component {
 // METHOD 2 - CAN BE USED IN FUNCTIONAL COMPONENTS & USE MULTIPLE CONTEXTS IN ONE COMPONENT.
     render() {
         return (
-            <AuthContext>{(authContext) => (
+            <AuthContext.Consumer>{(authContext) => (
                 <ThemeContext.Consumer>{(themeContext) => {
                   const { isAuthenticated, toggleAuth } = authContext; // Destructuring
                   const { isLightTheme, light, dark } = themeContext; // Destructuring
@@ -28,7 +27,7 @@ class Navbar extends Component {
                     </nav>
                   )
                 }}</ThemeContext.Consumer>
-              )}</AuthContext>
+              )}</AuthContext.Consumer>
         );
     }
 }
