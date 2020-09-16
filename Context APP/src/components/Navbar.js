@@ -1,35 +1,24 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import { ThemeContext } from '../contexts/ThemeContext';
 import { AuthContext } from '../contexts/AuthContext'
 
-class Navbar extends Component {
-
-
-// METHOD 2 - CAN BE USED IN FUNCTIONAL COMPONENTS & USE MULTIPLE CONTEXTS IN ONE COMPONENT.
-    render() {
-        return (
-            <AuthContext.Consumer>{(authContext) => (
-                <ThemeContext.Consumer>{(themeContext) => {
-                  const { isAuthenticated, toggleAuth } = authContext; // Destructuring
-                  const { isLightTheme, light, dark } = themeContext; // Destructuring
-                  const theme = isLightTheme ? light : dark; //Ternary operator
-                  return (
-                    <nav style={{ background: theme.ui, color: theme.syntax }}>
-                      <h1>Context App</h1>
-                      <div onClick={toggleAuth}>
-                        { isAuthenticated ? 'Logged in' : 'Logged out' }
-                      </div>
-                      <ul>
-                        <li>Home</li>
-                        <li>About</li>
-                        <li>Contact</li>
-                      </ul>
-                    </nav>
-                  )
-                }}</ThemeContext.Consumer>
-              )}</AuthContext.Consumer>
-        );
-    }
+const Navbar = () => {
+  const { isLightTheme, light, dark } = useContext(ThemeContext); // Destructuring
+  const { isAuthenticated, toggleAuth } = useContext(AuthContext); // Destructuring
+  const theme = isLightTheme ? light : dark; //Ternary operator
+  return (
+    <nav style={{ background: theme.ui, color: theme.syntax }}>
+    <h1>Context App</h1>
+    <div onClick={toggleAuth}>
+      { isAuthenticated ? 'Logged in' : 'Logged out' }
+    </div>
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+  );
 }
 
 export default Navbar;
@@ -54,6 +43,37 @@ export default Navbar;
 //                 <li>Contact</li>
 //             </ul>
 //         </nav>
+
+
+
+// class Navbar extends Component {
+
+//   // METHOD 2 - CAN BE USED IN FUNCTIONAL COMPONENTS & USE MULTIPLE CONTEXTS IN ONE COMPONENT.
+//       render() {
+//           return (
+//               <AuthContext.Consumer>{(authContext) => (
+//                   <ThemeContext.Consumer>{(themeContext) => {
+//                     const { isAuthenticated, toggleAuth } = authContext; // Destructuring
+//                     const { isLightTheme, light, dark } = themeContext; // Destructuring
+//                     const theme = isLightTheme ? light : dark; //Ternary operator
+//                     return (
+//                       <nav style={{ background: theme.ui, color: theme.syntax }}>
+//                         <h1>Context App</h1>
+//                         <div onClick={toggleAuth}>
+//                           { isAuthenticated ? 'Logged in' : 'Logged out' }
+//                         </div>
+//                         <ul>
+//                           <li>Home</li>
+//                           <li>About</li>
+//                           <li>Contact</li>
+//                         </ul>
+//                       </nav>
+//                     )
+//                   }}</ThemeContext.Consumer>
+//                 )}</AuthContext.Consumer>
+//           );
+//       }
+//   }
 
 
 
